@@ -69,6 +69,8 @@ public class UsuarioController {
 
         return ResponseEntity.ok(usuarioService.atualizaEndereco(id, dto));
 
+
+
     }
 
 
