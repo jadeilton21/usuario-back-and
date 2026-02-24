@@ -13,7 +13,7 @@ public class EnderecoDTO {
 
 
 
-
+    private Long id;
     private String logradouro;
     private String numero;
     private String complemento;
