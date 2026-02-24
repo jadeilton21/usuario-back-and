@@ -3,6 +3,8 @@ package com.jadeilton.usuario_back_end.controller;
 
 
 import com.jadeilton.usuario_back_end.business.UsuarioService;
+import com.jadeilton.usuario_back_end.business.dto.EnderecoDTO;
+import com.jadeilton.usuario_back_end.business.dto.TelefoneDTO;
 import com.jadeilton.usuario_back_end.business.dto.UsuarioDTO;
 import com.jadeilton.usuario_back_end.infrastructure.security.JwtUtil;
 import lombok.RequiredArgsConstructor;
@@ -55,5 +57,22 @@ public class UsuarioController {
                                                            @RequestHeader("Authorization") String token) {
 
         return ResponseEntity.ok(usuarioService.atualizaDadosUsuari(token, dto));
+    }
+
+
+    @PutMapping("/endereco")
+    public ResponseEntity<EnderecoDTO> atualizarEndereco(@RequestBody EnderecoDTO dto, @RequestParam("id") Long id){
+
+        return ResponseEntity.ok(usuarioService.atualizaEndereco(id, dto));
+
+    }
+
+
+
+    @PutMapping("/telefone")
+    public ResponseEntity<TelefoneDTO> atualizarTelefone(@RequestBody TelefoneDTO dto, @RequestParam("id") Long id){
+
+        return ResponseEntity.ok(usuarioService.atualizaTelefone(id, dto));
+
     }
 }
