@@ -1,13 +1,10 @@
 package com.jadeilton.usuario_back_end.controller;
 
 
-
 import com.jadeilton.usuario_back_end.business.UsuarioService;
 import com.jadeilton.usuario_back_end.business.dto.EnderecoDTO;
 import com.jadeilton.usuario_back_end.business.dto.TelefoneDTO;
 import com.jadeilton.usuario_back_end.business.dto.UsuarioDTO;
-frastructure.exceptions.ResourceNotFoundException;
-
 import com.jadeilton.usuario_back_end.infrastructure.security.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,24 +13,21 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/usuario")
+@RequiredArgsConstructor
 public class UsuarioController {
-
-
 
 
     private final UsuarioService usuarioService;
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
 
-
     @PostMapping
-    public ResponseEntity<UsuarioDTO> salvarUsuario(@RequestBody UsuarioDTO usuarioDTO){
+    public ResponseEntity<UsuarioDTO> salvarUsuario(@RequestBody UsuarioDTO usuarioDTO) {
         return ResponseEntity.ok(usuarioService.salvaUsuario(usuarioDTO));
     }
+
 
     @PostMapping("/login")
     public String login(@RequestBody UsuarioDTO usuarioDTO) {
@@ -45,7 +39,7 @@ public class UsuarioController {
 
     }
     @GetMapping
-
+    public ResponseEntity<UsuarioDTO> buscarUsuarioPorEmail(@RequestParam("email") String email) {
 
         return ResponseEntity.ok(usuarioService.buscarUsuarioPorEmail(email));
 
@@ -62,21 +56,36 @@ public class UsuarioController {
 
         return ResponseEntity.ok(usuarioService.atualizaDadosUsuari(token, dto));
     }
-
-
     @PutMapping("/endereco")
-    public ResponseEntity<EnderecoDTO> atualizarEndereco(@RequestBody EnderecoDTO dto, @RequestParam("id") Long id){
+    public ResponseEntity<EnderecoDTO> atualizaEndereco(@RequestBody EnderecoDTO dto,
+                                                        @RequestParam("id") Long id) {
 
         return ResponseEntity.ok(usuarioService.atualizaEndereco(id, dto));
+
+
+
     }
-
-
-
     @PutMapping("/telefone")
-    public ResponseEntity<TelefoneDTO> atualizarTelefone(@RequestBody TelefoneDTO dto, @RequestParam("id") Long id){
+    public ResponseEntity<TelefoneDTO> atualizaTelefone(@RequestBody TelefoneDTO dto,
+                                                        @RequestParam("id") Long id) {
 
         return ResponseEntity.ok(usuarioService.atualizaTelefone(id, dto));
 
+
+
     }
 
+    @PostMapping("/endereco")
+    public ResponseEntity<EnderecoDTO> cadastroEndereco(@RequestBody EnderecoDTO dto, @RequestHeader ("Authorization") String token) {
+        return ResponseEntity.ok(usuarioService.cad(token,dto));
+
+    }
+
+    @PostMapping("/telefone")
+    public ResponseEntity<TelefoneDTO> cadastroTelefone(@RequestBody TelefoneDTO dto, @RequestHeader("Authorization") String token) {
+
+
+
+        return ResponseEntity.ok(usuarioService.cadastraTelefone(token,dto));
+    }
 }
