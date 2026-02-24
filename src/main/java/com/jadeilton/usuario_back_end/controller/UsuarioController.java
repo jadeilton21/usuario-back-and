@@ -6,6 +6,8 @@ import com.jadeilton.usuario_back_end.business.UsuarioService;
 import com.jadeilton.usuario_back_end.business.dto.EnderecoDTO;
 import com.jadeilton.usuario_back_end.business.dto.TelefoneDTO;
 import com.jadeilton.usuario_back_end.business.dto.UsuarioDTO;
+frastructure.exceptions.ResourceNotFoundException;
+
 import com.jadeilton.usuario_back_end.infrastructure.security.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -27,10 +29,12 @@ public class UsuarioController {
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
 
+
     @PostMapping
     public ResponseEntity<UsuarioDTO> salvarUsuario(@RequestBody UsuarioDTO usuarioDTO){
         return ResponseEntity.ok(usuarioService.salvaUsuario(usuarioDTO));
     }
+
     @PostMapping("/login")
     public String login(@RequestBody UsuarioDTO usuarioDTO) {
 
@@ -41,7 +45,7 @@ public class UsuarioController {
 
     }
     @GetMapping
-    public ResponseEntity<UsuarioDTO> buscarUsuarioPorEmail(@RequestParam("email") String email) {
+
 
         return ResponseEntity.ok(usuarioService.buscarUsuarioPorEmail(email));
 
@@ -75,4 +79,5 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioService.atualizaTelefone(id, dto));
 
     }
+
 }
