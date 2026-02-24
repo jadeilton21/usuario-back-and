@@ -68,9 +68,6 @@ public class UsuarioController {
     public ResponseEntity<EnderecoDTO> atualizarEndereco(@RequestBody EnderecoDTO dto, @RequestParam("id") Long id){
 
         return ResponseEntity.ok(usuarioService.atualizaEndereco(id, dto));
-
-
-
     }
 
 
