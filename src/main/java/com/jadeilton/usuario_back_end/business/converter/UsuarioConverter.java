@@ -179,4 +179,35 @@ public class UsuarioConverter {
                 .ddd(dto.getDdd() != null? dto.getDdd() : entity.getDdd() )
                 .build();
     }
+
+
+    public Endereco paraEnderecoEntity(EnderecoDTO dto, Long idUsuario) {
+
+        return Endereco.builder()
+                .estado(dto.getEstado())
+                .cep(dto.getCep())
+                .logradouro(dto.getLogradouro())
+                .cidade(dto.getCidade())
+                .complemento(dto.getComplemento())
+                .uf(dto.getUf())
+                .bairro(dto.getBairro())
+                .usuario_id(idUsuario)
+                .build();
+    }
+
+
+
+    public Telefone paraTelefone(TelefoneDTO dto, Long idUsuario) {
+
+
+        return Telefone.builder()
+
+                .numero(dto.getNumero())
+                .ddd(dto.getDdd())
+                .usuario_id(idUsuario)
+                .build();
+    }
+
+
+
 }
