@@ -22,8 +22,10 @@ public class UsuarioConverter {
                 .nome(usuarioDTO.getNome())
                 .email(usuarioDTO.getEmail())
                 .senha(usuarioDTO.getSenha())
-                .endereco(paraLIstaEndereco(usuarioDTO.getEnderecos()))
-                .telefone(paraListaTelefone(usuarioDTO.getTelefone()))
+                .endereco(usuarioDTO.getEnderecos() != null ?
+                        paraLIstaEndereco(usuarioDTO.getEnderecos()) : null)
+                .telefone(usuarioDTO.getTelefone()
+                        != null ? paraListaTelefone(usuarioDTO.getTelefone()) : null )
 
 
                 .build();
@@ -88,8 +90,10 @@ public class UsuarioConverter {
                 .nome(usuarioDTO.getNome())
                 .email(usuarioDTO.getEmail())
                 .senha(usuarioDTO.getSenha())
-                .enderecos(paraLIstaEnderecoDTO(usuarioDTO.getEndereco()))
-                .telefone(paraListaTelefoneDTO(usuarioDTO.getTelefone()))
+                .enderecos(usuarioDTO.getEndereco() != null ?
+                        paraLIstaEnderecoDTO(usuarioDTO.getEndereco()) : null)
+                .telefone(usuarioDTO.getTelefone()
+                        != null ? paraListaTelefoneDTO( usuarioDTO.getTelefone()) : null )
 
 
                 .build();
