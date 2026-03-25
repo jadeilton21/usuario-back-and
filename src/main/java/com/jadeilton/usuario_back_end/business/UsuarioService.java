@@ -137,7 +137,7 @@ public class UsuarioService {
         Usuario usuario = usuarioRepository.findByEmail(email).orElseThrow(() ->
                 new ResourceNotFoundException("Telefone não localizado " + email));
 
-        Telefone telefone = usuarioConverter.paraTelefone(dto, usuario.getId());
+        Telefone telefone = usuarioConverter.paraTelefone(dto);
         return usuarioConverter.paraTelefoneDTO(telefoneRepository.save(telefone));
 
     }
