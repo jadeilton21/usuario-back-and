@@ -57,7 +57,7 @@ public class UsuarioConverter {
 
     }
     public List<Telefone> paraListaTelefone(List<TelefoneDTO> telefoneDTOS){
-        return telefoneDTOS.stream().map(this::paraTelefone).toList();
+        return telefoneDTOS.stream().map(telefoneDTO -> paraTelefone(telefoneDTO)).toList();
     }
 
 
@@ -201,14 +201,14 @@ public class UsuarioConverter {
 
 
 
-    public Telefone paraTelefone(TelefoneDTO dto, Long idUsuario) {
+    public Telefone paraTelefone(TelefoneDTO dto, Usuario idUsuario) {
 
 
         return Telefone.builder()
 
                 .numero(dto.getNumero())
                 .ddd(dto.getDdd())
-                .usuario_id(idUsuario)
+                .usuario(idUsuario)
                 .build();
     }
 

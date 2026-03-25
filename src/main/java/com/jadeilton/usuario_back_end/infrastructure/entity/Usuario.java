@@ -34,9 +34,9 @@ public class Usuario implements UserDetails {
     private List<Endereco> endereco;
 
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<Telefone> telefone;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
