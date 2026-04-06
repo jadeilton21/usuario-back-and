@@ -29,7 +29,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-webmvc'
 
-
+	runtimeOnly 'org.postgresql:postgresql'
 
 
 	implementation("io.jsonwebtoken:jjwt-api:0.13.0")
