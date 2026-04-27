@@ -1,16 +1,17 @@
 package com.jadeilton.usuario_back_end.infrastructure.exceptions;
 
 
-import org.springframework.security.core.AuthenticationException;
+import javax.security.sasl.AuthenticationException;
 
 public class UnauthorizedException extends AuthenticationException {
 
-    public UnauthorizedException(String message) {
-
-        super(message);
+    public UnauthorizedException(String mensagem){
+        super(mensagem);
     }
 
-    public UnauthorizedException(String message, Throwable throwable) {
-        super(message, throwable);
+    public UnauthorizedException(String mensagem, Throwable throwable){
+        super(mensagem, throwable);
     }
 }
+
+

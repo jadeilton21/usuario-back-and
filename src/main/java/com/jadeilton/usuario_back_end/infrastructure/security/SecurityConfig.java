@@ -20,11 +20,14 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
+
 @SecurityScheme(name = SecurityConfig.SECURITY_SCHEME, type = SecuritySchemeType.HTTP
         , bearerFormat = "JWT", scheme = "bearer")
+
 public class SecurityConfig {
 
     public static final String SECURITY_SCHEME = "bearerAuth";
+
 
 
     // Instâncias de JwtUtil e UserDetailsService injetadas pelo Spring
@@ -42,15 +45,25 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
+
+
+
         JwtRequestFilter jwtRequestFilter = new JwtRequestFilter(jwtUtil, userDetailsService);
 
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
+
+                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/usuario").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/usuario/login").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/usuario/endereco/**").permitAll()
+
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui/","/swagger-ui.html").permitAll()
                         .requestMatchers("/usuario/login").permitAll()
                         .requestMatchers(HttpMethod.GET, "/auth").permitAll()
                         .requestMatchers(HttpMethod.POST, "/usuario").permitAll()
+
                         .requestMatchers("/usuario/**").authenticated()
                         .anyRequest().authenticated()
                 )
@@ -58,7 +71,10 @@ public class SecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+
+
        
+
         return http.build();
     }
 

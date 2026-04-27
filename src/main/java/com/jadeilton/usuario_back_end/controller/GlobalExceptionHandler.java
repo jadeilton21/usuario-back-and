@@ -1,10 +1,11 @@
 package com.jadeilton.usuario_back_end.controller;
 
-
 import com.jadeilton.usuario_back_end.infrastructure.exceptions.ConflictException;
 import com.jadeilton.usuario_back_end.infrastructure.exceptions.ResourceNotFoundException;
-import com.jadeilton.usuario_back_end.infrastructure.exceptions.UnauthorizedException;
-import org.springframework.http.HttpStatus;
+ import com.jadeilton.usuario_back_end.infrastructure.exceptions.UnauthorizedException;
+
+
+ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -34,3 +35,4 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.UNAUTHORIZED);
     }
 }
+
