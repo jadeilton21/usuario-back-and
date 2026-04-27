@@ -22,8 +22,10 @@ public class UsuarioConverter {
                 .nome(usuarioDTO.getNome())
                 .email(usuarioDTO.getEmail())
                 .senha(usuarioDTO.getSenha())
-                .endereco(paraLIstaEndereco(usuarioDTO.getEnderecos()))
-                .telefone(paraListaTelefone(usuarioDTO.getTelefone()))
+                .endereco(usuarioDTO.getEnderecos() != null ?
+                        paraLIstaEndereco(usuarioDTO.getEnderecos()) : null)
+                .telefone(usuarioDTO.getTelefone()
+                        != null ? paraListaTelefone(usuarioDTO.getTelefone()) : null )
 
 
                 .build();
@@ -55,7 +57,7 @@ public class UsuarioConverter {
 
     }
     public List<Telefone> paraListaTelefone(List<TelefoneDTO> telefoneDTOS){
-        return telefoneDTOS.stream().map(this::paraTelefone).toList();
+        return telefoneDTOS.stream().map(telefoneDTO -> paraTelefone(telefoneDTO)).toList();
     }
 
 
@@ -88,8 +90,10 @@ public class UsuarioConverter {
                 .nome(usuarioDTO.getNome())
                 .email(usuarioDTO.getEmail())
                 .senha(usuarioDTO.getSenha())
-                .enderecos(paraLIstaEnderecoDTO(usuarioDTO.getEndereco()))
-                .telefone(paraListaTelefoneDTO(usuarioDTO.getTelefone()))
+                .enderecos(usuarioDTO.getEndereco() != null ?
+                        paraLIstaEnderecoDTO(usuarioDTO.getEndereco()) : null)
+                .telefone(usuarioDTO.getTelefone()
+                        != null ? paraListaTelefoneDTO( usuarioDTO.getTelefone()) : null )
 
 
                 .build();
@@ -179,4 +183,35 @@ public class UsuarioConverter {
                 .ddd(dto.getDdd() != null? dto.getDdd() : entity.getDdd() )
                 .build();
     }
+
+
+    public Endereco paraEnderecoEntity(EnderecoDTO dto, Long idUsuario) {
+
+        return Endereco.builder()
+                .estado(dto.getEstado())
+                .cep(dto.getCep())
+                .logradouro(dto.getLogradouro())
+                .cidade(dto.getCidade())
+                .complemento(dto.getComplemento())
+                .uf(dto.getUf())
+                .bairro(dto.getBairro())
+                .usuario_id(idUsuario)
+                .build();
+    }
+
+
+
+    public Telefone paraTelefone(TelefoneDTO dto, Usuario idUsuario) {
+
+
+        return Telefone.builder()
+
+                .numero(dto.getNumero())
+                .ddd(dto.getDdd())
+                .usuario(idUsuario)
+                .build();
+    }
+
+
+
 }

@@ -8,6 +8,9 @@ import com.jadeilton.usuario_back_end.business.dto.TelefoneDTO;
 import com.jadeilton.usuario_back_end.business.dto.UsuarioDTO;
 import com.jadeilton.usuario_back_end.infrastructure.clients.ViaCepDTO;
 import com.jadeilton.usuario_back_end.infrastructure.security.JwtUtil;
+import com.jadeilton.usuario_back_end.infrastructure.security.SecurityConfig;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,6 +21,9 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/usuario")
 @RequiredArgsConstructor
+
+@Tag(name = "Tarefas",description = "Cadastro Tarefas de Usuários")
+@SecurityRequirement(name = SecurityConfig.SECURITY_SCHEME)
 public class UsuarioController {
 
 
@@ -83,4 +89,19 @@ public class UsuarioController {
         return ResponseEntity.ok(viaCepService.buscarDadosEndereco(cep));
     }
 
+    @PostMapping("/endereco")
+    public ResponseEntity<EnderecoDTO> cadastroEndereco(@RequestBody EnderecoDTO dto, @RequestHeader ("Authorization") String token) {
+        return ResponseEntity.ok(usuarioService.cadastraEndereco(token,dto));
+
+    }
+
+    @PostMapping("/telefone")
+    public ResponseEntity<TelefoneDTO> cadastroTelefone(@RequestBody TelefoneDTO dto, @RequestHeader("Authorization") String token) {
+
+
+
+        return ResponseEntity.ok(usuarioService.cadastraTelefone(token,dto));
+    }
+
 }
+

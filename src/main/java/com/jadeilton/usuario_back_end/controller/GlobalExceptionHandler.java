@@ -1,15 +1,23 @@
 package com.jadeilton.usuario_back_end.controller;
 
+ feature/api_via_cep
 import com.jadeilton.usuario_back_end.infrastructure.exceptions.ConflictException;
 import com.jadeilton.usuario_back_end.infrastructure.exceptions.ResourceNotFoundException;
 import com.jadeilton.usuario_back_end.infrastructure.exceptions.UnauthorizedException;
 import com.jadeilton.usuario_back_end.infrastructure.exceptions.dto.ErrorResponseDTO;
 import jakarta.servlet.http.HttpServletRequest;
+
+
+import com.jadeilton.usuario_back_end.infrastructure.exceptions.ConflictException;
+import com.jadeilton.usuario_back_end.infrastructure.exceptions.ResourceNotFoundException;
+import com.jadeilton.usuario_back_end.infrastructure.exceptions.UnauthorizedException;
+ master
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+ feature/api_via_cep
 import java.time.LocalDateTime;
 
 @ControllerAdvice
@@ -64,3 +72,30 @@ public class GlobalExceptionHandler {
                 .build();
     }
 }
+
+@ControllerAdvice
+public class GlobalExceptionHandler {
+
+
+
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<String> handlerResouceNotFoundException(ResourceNotFoundException ex){
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+
+    @ExceptionHandler(ConflictException.class)
+    public ResponseEntity<String> handlerConflictException(ConflictException ex){
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
+    }
+
+
+
+
+    @ExceptionHandler(UnauthorizedException.class)
+    public ResponseEntity<String> UnauthorizedException(ConflictException ex){
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.UNAUTHORIZED);
+    }
+}
+ master

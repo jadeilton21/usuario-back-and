@@ -24,7 +24,7 @@ public class Usuario implements UserDetails {
     private Long id;
     @Column(name="nome",length=50)
     private String nome;
-    @Column(name =" email", length=50)
+    @Column(name ="email", length=50)
     private String email;
     @Column(name = "senha")
     private String senha;
@@ -34,9 +34,9 @@ public class Usuario implements UserDetails {
     private List<Endereco> endereco;
 
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<Telefone> telefone;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
