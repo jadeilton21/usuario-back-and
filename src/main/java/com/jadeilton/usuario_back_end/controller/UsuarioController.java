@@ -2,9 +2,11 @@ package com.jadeilton.usuario_back_end.controller;
 
 
 import com.jadeilton.usuario_back_end.business.UsuarioService;
+import com.jadeilton.usuario_back_end.business.ViaCepService;
 import com.jadeilton.usuario_back_end.business.dto.EnderecoDTO;
 import com.jadeilton.usuario_back_end.business.dto.TelefoneDTO;
 import com.jadeilton.usuario_back_end.business.dto.UsuarioDTO;
+import com.jadeilton.usuario_back_end.infrastructure.clients.ViaCepDTO;
 import com.jadeilton.usuario_back_end.infrastructure.security.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,7 @@ public class UsuarioController {
     private final UsuarioService usuarioService;
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
+    private final ViaCepService viaCepService;
 
     @PostMapping
     public ResponseEntity<UsuarioDTO> salvarUsuario(@RequestBody UsuarioDTO usuarioDTO) {
@@ -75,5 +78,9 @@ public class UsuarioController {
 
     }
 
+    @GetMapping("/endereco/{cep}")
+    public ResponseEntity<ViaCepDTO> buscarDadosCep(@PathVariable("cep") String cep){
+        return ResponseEntity.ok(viaCepService.buscarDadosEndereco(cep));
+    }
 
 }
