@@ -20,20 +20,16 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
- feature/api_via_cep
-
 
 @SecurityScheme(name = SecurityConfig.SECURITY_SCHEME, type = SecuritySchemeType.HTTP
         , bearerFormat = "JWT", scheme = "bearer")
- master
+
 public class SecurityConfig {
 
     public static final String SECURITY_SCHEME = "bearerAuth";
 
- feature/api_via_cep
-=======
 
- master
+
     // Instâncias de JwtUtil e UserDetailsService injetadas pelo Spring
     private final JwtUtil jwtUtil;
     private final UserDetailsService userDetailsService;
@@ -48,16 +44,16 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
- feature/api_via_cep
 
 
- master
+
+
         JwtRequestFilter jwtRequestFilter = new JwtRequestFilter(jwtUtil, userDetailsService);
 
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
- feature/api_via_cep
+
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                         .requestMatchers(HttpMethod.POST, "/usuario").permitAll()
                         .requestMatchers(HttpMethod.POST, "/usuario/login").permitAll()
@@ -67,7 +63,7 @@ public class SecurityConfig {
                         .requestMatchers("/usuario/login").permitAll()
                         .requestMatchers(HttpMethod.GET, "/auth").permitAll()
                         .requestMatchers(HttpMethod.POST, "/usuario").permitAll()
- master
+
                         .requestMatchers("/usuario/**").authenticated()
                         .anyRequest().authenticated()
                 )
@@ -75,11 +71,10 @@ public class SecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
- feature/api_via_cep
 
 
        
- master
+
         return http.build();
     }
 
