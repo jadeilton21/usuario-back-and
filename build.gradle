@@ -35,7 +35,6 @@ dependencies {
 
 	runtimeOnly 'org.postgresql:postgresql'
 
- feature/api_via_cep
 
 	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 
