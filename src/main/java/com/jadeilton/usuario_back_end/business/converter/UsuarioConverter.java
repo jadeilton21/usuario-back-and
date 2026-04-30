@@ -172,6 +172,7 @@ public class UsuarioConverter {
                 .uf(dto.getUf() != null? dto.getUf() : entity.getUf())
                 .estado(dto.getEstado() != null ? dto.getEstado() : entity.getEstado())
                 .logradouro(dto.getLogradouro() != null ? dto.getLogradouro() : entity.getLogradouro())
+                .usuario_id(entity.getUsuario_id())
                 .build();
 
     }
@@ -181,6 +182,7 @@ public class UsuarioConverter {
                 .id(entity.getId())
                 .numero(dto.getNumero() != null ? dto.getNumero() : entity.getNumero())
                 .ddd(dto.getDdd() != null? dto.getDdd() : entity.getDdd() )
+                .usuario_id(entity.getUsuario_id())
                 .build();
     }
 
@@ -201,14 +203,11 @@ public class UsuarioConverter {
 
 
 
-    public Telefone paraTelefone(TelefoneDTO dto, Usuario idUsuario) {
-
-
+    public Telefone paraTelefoneEntity(TelefoneDTO dto, Long idUsuario){
         return Telefone.builder()
-
                 .numero(dto.getNumero())
                 .ddd(dto.getDdd())
-                .usuario(idUsuario)
+                .usuario_id(idUsuario)
                 .build();
     }
 
