@@ -7,6 +7,7 @@ import com.jadeilton.usuario_back_end.business.dto.EnderecoDTO;
 import com.jadeilton.usuario_back_end.business.dto.TelefoneDTO;
 import com.jadeilton.usuario_back_end.business.dto.UsuarioDTO;
 import com.jadeilton.usuario_back_end.infrastructure.clients.ViaCepDTO;
+import com.jadeilton.usuario_back_end.infrastructure.exceptions.UnauthorizedException;
 import com.jadeilton.usuario_back_end.infrastructure.security.JwtUtil;
 import com.jadeilton.usuario_back_end.infrastructure.security.SecurityConfig;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -37,15 +38,9 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioService.salvaUsuario(usuarioDTO));
     }
 
-
     @PostMapping("/login")
-    public String login(@RequestBody UsuarioDTO usuarioDTO) {
-
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(usuarioDTO.getEmail(), usuarioDTO.getSenha())
-        );
-        return "Bearer: " + jwtUtil.generateToken(authentication.getName());
-
+    public ResponseEntity<String> login(@RequestBody UsuarioDTO usuarioDTO) throws UnauthorizedException {
+        return ResponseEntity.ok(usuarioService.autenticarUsuario(usuarioDTO));
     }
     @GetMapping
     public ResponseEntity<UsuarioDTO> buscarUsuarioPorEmail(@RequestParam("email") String email) {
