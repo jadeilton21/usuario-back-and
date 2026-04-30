@@ -24,6 +24,6 @@ public class Telefone {
 
     @ManyToOne
     @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
+    private Long usuario_id;
 
 }
